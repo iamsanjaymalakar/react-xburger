@@ -1,11 +1,14 @@
 import React from 'react';
+import Button from '../../UI/Button/Button';
+
+const capitalize = s => s[0].toUpperCase() + s.slice(1);
 
 const orderSummary = props => {
     const ingredientSummary = Object.keys(props.ingredients)
         .map(item => {
             return (
                 <li key={item}>
-                    {item}: {props.ingredients[item]}
+                    {capitalize(item)}: {props.ingredients[item]}
                 </li>
             );
         });
@@ -18,8 +21,8 @@ const orderSummary = props => {
                 {ingredientSummary}
             </ul>
             <p>Continue to Checkout?</p>
-            <button onClick={props.purchaseCancelled}>CANCEL</button>
-            <button onClick={props.purchaseContinued}>CONTINUE</button>
+            <Button type='Danger' clicked={props.purchaseCancelled}>CANCEL</Button>
+            <Button type='Success' clicked={props.purchaseContinued}>CONTINUE</Button>
         </React.Fragment>
     );
 };
