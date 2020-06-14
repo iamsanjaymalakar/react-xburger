@@ -67,9 +67,7 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
-        console.log('clicked on order');
         this.setState({ purchasing: true });
-        console.log(this.state.purchasing);
     }
 
     purchaseCancelHandler = () => {
