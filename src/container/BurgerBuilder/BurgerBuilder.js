@@ -17,16 +17,25 @@ const INGREDIENT_PRICES = {
 class BurgerBuilder extends Component {
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        ingredients: null,
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error: false
+    }
+
+    componentDidMount() {
+        axios.get('ingredients.json')
+            .then(res => {
+                this.setState({
+                    ingredients: res.data
+                });
+            }).catch(err => {
+                this.setState({
+                    error: true
+                })
+            })
     }
 
     updatePurchaseState(ingredients) {
@@ -79,7 +88,6 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        // alert('You continue!');
         this.setState({
             loading: true
         })
@@ -121,19 +129,27 @@ class BurgerBuilder extends Component {
             <React.Fragment>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
                     {this.state.loading ? <Spinner /> :
-                        <OrderSummary
+                        this.state.ingredients && <OrderSummary
                             ingredients={this.state.ingredients}
                             purchaseCancelled={this.purchaseCancelHandler}
                             purchaseContinued={this.purchaseContinueHandler} />}
                 </Modal>
-                <Burger ingredients={this.state.ingredients} />
-                <BurgerBuildControls
-                    ingredientAdded={this.addIngredientHandler}
-                    ingredientRemoved={this.removeIngredientHandler}
-                    disabled={disabledInfo}
-                    purchasable={this.state.purchasable}
-                    price={this.state.totalPrice}
-                    onOrder={this.purchaseHandler} />
+                {this.state.ingredients ?
+                    (<React.Fragment>
+                        <Burger ingredients={this.state.ingredients} />
+                        <BurgerBuildControls
+                            ingredientAdded={this.addIngredientHandler}
+                            ingredientRemoved={this.removeIngredientHandler}
+                            disabled={disabledInfo}
+                            purchasable={this.state.purchasable}
+                            price={this.state.totalPrice}
+                            onOrder={this.purchaseHandler} />
+                    </React.Fragment>) :
+                    (this.state.error ?
+                        <div style={{ textAlign: 'center' }}>
+                            <h1>Ingredients can't be loaded!</h1>
+                        </div> :
+                        <Spinner />)}
             </React.Fragment>
         );
     }
