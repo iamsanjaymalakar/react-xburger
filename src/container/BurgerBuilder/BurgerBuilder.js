@@ -15,7 +15,6 @@ const INGREDIENT_PRICES = {
 };
 
 class BurgerBuilder extends Component {
-
     state = {
         ingredients: null,
         totalPrice: 4,
@@ -88,6 +87,8 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
+        this.props.history.push('/checkout');
+        return;
         this.setState({
             loading: true
         })
@@ -119,6 +120,7 @@ class BurgerBuilder extends Component {
     }
 
     render() {
+        console.log(this.props);
         const disabledInfo = {
             ...this.state.ingredients
         };
