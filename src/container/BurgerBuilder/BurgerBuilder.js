@@ -4,6 +4,7 @@ import BurgerBuildControls from '../../components/Burger/BuildControls';
 import Modal from '../../UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary';
 import Spinner from '../../UI/Spinner/Spinner'
+import withErrorHandler from '../../hoc/withErrorHandle'
 import axios from '../../axios-orders';
 
 
@@ -91,43 +92,14 @@ class BurgerBuilder extends Component {
         for (let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
+        queryParams.push('price=' + this.state.totalPrice);
         this.props.history.push({
             pathname: '/checkout',
             search: '?' + queryParams.join('&')
         });
-        return;
-        this.setState({
-            loading: true
-        })
-        axios.post('orders.json', {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Sanjay',
-                address: {
-                    street: 'Random',
-                    zipCode: '5000',
-                    country: 'Bangladesh'
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }).then(res => {
-            this.setState({
-                purchasing: false,
-                loading: false
-            });
-        }).catch(err => {
-            console.log(err);
-            this.setState({
-                purchasing: false,
-                loading: false
-            });
-        });
     }
 
     render() {
-        console.log(this.props);
         const disabledInfo = {
             ...this.state.ingredients
         };
@@ -164,4 +136,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
