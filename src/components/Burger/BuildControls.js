@@ -3,13 +3,8 @@ import React from 'react';
 import classes from './BuildControls.module.css';
 import BuildControl from './BuildControl';
 
-// const controls = [
-//     { label: 'Salad', type: 'salad' },
-//     { label: 'Bacon', type: 'bacon' },
-//     { label: 'Cheese', type: 'cheese' },
-//     { label: 'Meat', type: 'meat' },
-// ];
 const controls = ['Salad', 'Bacon', 'Cheese', 'Meat'];
+
 const buildControls = props => {
     return (
         <div className={classes.BuildControls}>
@@ -26,7 +21,9 @@ const buildControls = props => {
             <button
                 className={classes.OrderButton}
                 disabled={!props.purchasable}
-                onClick={props.onOrder}>ORDER NOW</button>
+                onClick={props.onOrder}>
+                {props.isAuth ? 'ORDER NOW' : 'SIGN UP TO ORDER'}
+            </button>
         </div>
     );
 }
