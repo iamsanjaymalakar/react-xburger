@@ -23,8 +23,6 @@ export const purchaseBurgerStart = () => {
 };
 
 export const purchaseBurger = (orderData, token) => {
-    console.log(token);
-    console.log(orderData);
     return dispatch => {
         dispatch(purchaseBurgerStart());
         axios.post('/orders.json?auth=' + token, orderData)
@@ -64,8 +62,6 @@ export const fetchOrdersStart = () => {
 };
 
 export const fetchOrders = (token, userId) => {
-    console.log(token);
-    console.log(userId);
     return dispatch => {
         dispatch(fetchOrdersStart());
         const queryParams = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';

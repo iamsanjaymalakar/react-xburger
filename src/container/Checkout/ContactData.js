@@ -8,6 +8,7 @@ import axios from '../../axios-orders';
 import classes from './ContactData.module.css';
 import withErrorHandler from '../../hoc/withErrorHandle';
 import * as actions from '../../store/actions/index';
+import { updateObject, checkValidity } from '../../utils/utils';
 
 class ContactData extends Component {
     state = {
@@ -97,39 +98,15 @@ class ContactData extends Component {
         formIsValid: false
     }
 
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '';
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid;
-        }
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid;
-        }
-        return isValid;
-    }
-
     inputChangedHandler = (event, key) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedFormElement = {
-            ...updatedOrderForm[key]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedOrderForm[key] = updatedFormElement;
+        const updatedFormElement = updateObject(this.state.orderForm[key], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[key].validation),
+            touched: true,
+        });
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [key]: updatedFormElement
+        });
         let formIsValid = true;
         for (let key in updatedOrderForm) {
             formIsValid = updatedOrderForm[key].valid && formIsValid;
