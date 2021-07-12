@@ -1,68 +1,158 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-## Available Scripts
 
-In the project directory, you can run:
 
-### `npm start`
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://github.com/iamsanjaymalakar/react-xburger/">
+    <img src="src/assets/images/burger_logo.png" alt="Logo" width="60" height="50">
+  </a>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  <h3 align="center">xBurger</h3>
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+  <p align="center">
+    Online burger ordering app created with React.
+    <br />
+    <a href="https://react-xburger.web.app/">View Demo</a>
+    <br>
+    <a href="https://react-xburger.web.app/">https://react-xburger.web.app/</a>
+  </p>
+</p>
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+[![Product Name Screen Shot][product-screenshot]](https://ecommerce99.herokuapp.com/)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This was created while learning React.js from a Udemy course (React - The Complete Guide (incl Hooks, React Router, Redux).
 
-### `npm run eject`
+I have learned:
+* React JSX
+* Class and function components
+* Lifecycle methods
+* React Router
+* React Hooks
+* Redux
+* Jest
+* Enzyme
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Built With
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [React Router](https://reactrouter.com/)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Prerequisites
+* npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Installation
 
-## Learn More
+1. Get a free API Key for Firebase authentication.
+2. Clone the repo
+   ```sh
+   git clone https://github.com/iamsanjaymalakar/react-xburger.git
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
+   ```
+4. Setup your firebase authentication API key in file `src/store/actions/auth.js`.
+   ```JS
+   const API_KEY = 'FIREBASE_AUTH_API_KEY';
+   ```
+5.  Setup your firebase database URL in `src/axios-orders.js`/. Store a JSON in your database with key `ingredients`.
+    ```JS
+    "ingredients" = {
+        "bacon":0,
+        "cheese":0,
+        "meat":1,
+        "salad":0
+    }
+    ```
+6. Firebase database rules: 
+    ```JS
+    {
+    "rules": {
+        "ingredients": {
+            ".read": "true",
+            ".write": "true"
+        },
+        "orders": {
+            ".read": "auth != null",
+            ".write": "auth != null",
+            ".indexOn" : ["userId"]
+        }
+    }
+    ```
+5. Run the project using npm.
+   ```sh
+   npm start
+   ``` 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+<br>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+<!-- CONTACT -->
+## Contact
 
-### Making a Progressive Web App
+Sanjay Malakar - [@19malakar](https://twitter.com/19malakar) - iamsanjaymalakar@gmail.com
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+Project Link: [https://github.com/iamsanjaymalakar/react-xburger](https://github.com/iamsanjaymalakar/react-xburger)
 
-### Advanced Configuration
+<br>
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+<!-- ACKNOWLEDGEMENTS -->
+## Acknowledgements
+* [Udemy React course by Maximilian Schwarzmüller](https://www.udemy.com/course/react-the-complete-guide-incl-redux/)
 
-### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+[contributors-shield]: https://img.shields.io/github/contributors/iamsanjaymalakar/react-xburger.svg?style=for-the-badge
+[contributors-url]: https://github.com/iamsanjaymalakar/react-xburger/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/iamsanjaymalakar/react-xburger.svg?style=for-the-badge
+[forks-url]: https://github.com/iamsanjaymalakar/react-xburger/network/members
+[stars-shield]: https://img.shields.io/github/stars/iamsanjaymalakar/react-xburger.svg?style=for-the-badge
+[stars-url]: https://github.com/iamsanjaymalakar/react-xburger/stargazers
+[issues-shield]: https://img.shields.io/github/issues/iamsanjaymalakar/react-xburger.svg?style=for-the-badge
+[issues-url]: https://github.com/iamsanjaymalakar/react-xburger/issues
+[license-shield]: https://img.shields.io/github/license/iamsanjaymalakar/react-xburger.svg?style=for-the-badge
+[license-url]: https://github.com/iamsanjaymalakar/react-xburgerblob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/sanjaymalakar/
+[product-screenshot]: src/assets/images/demo.png
